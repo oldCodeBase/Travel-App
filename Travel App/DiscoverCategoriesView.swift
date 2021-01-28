@@ -16,8 +16,8 @@ struct DiscoverCategoriesView: View {
         Category(name: "Art", imageName: "paintpalette.fill"),
         Category(name: "Sport", imageName: "sportscourt.fill"),
         Category(name: "Live Events", imageName: "music.mic"),
-        Category(name: "Food", imageName: "music.mic"),
-        Category(name: "History", imageName: "music.mic"),
+        Category(name: "Food", imageName: "tray.fill"),
+        Category(name: "History", imageName: "books.vertical.fill"),
     ]
     
     var body: some View {
@@ -27,14 +27,14 @@ struct DiscoverCategoriesView: View {
                     VStack(spacing: 8) {
                         Image(systemName: category.imageName)
                             .font(.system(size: 20))
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)))
                             .frame(width: 64, height: 64)
-                            .background(Color(.init(white: 0.9, alpha: 1)))
-                            .cornerRadius(64)
-                            .shadow(color: .gray, radius: 2, x: 0.0, y: 2)
+                            .background(Color(.white))
+                            .cornerRadius(32)
                         Text(category.name)
                             .font(.system(size: 12, weight: .semibold))
                             .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
                     }.frame(width: 68)
                 }
             }.padding(.horizontal)
@@ -45,5 +45,6 @@ struct DiscoverCategoriesView: View {
 struct DiscoverCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         DiscoverCategoriesView()
+            .background(Color(.black))
     }
 }

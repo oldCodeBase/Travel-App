@@ -52,9 +52,9 @@ struct PopularDestinationsView: View {
                                 .padding(.bottom, 8)
                                 .foregroundColor(.gray)
                         }
-                        .background(Color(.init(white: 0.9, alpha: 1)))
+                        .background(Color(.white))
                         .cornerRadius(5)
-                        .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
+                        .shadow(color: .init(.sRGB, white: 0.8, opacity: 1), radius: 4, x: 0.0, y: 2)
                         .padding(.bottom)
                     }
                 }.padding(.horizontal)
