@@ -14,6 +14,7 @@ struct ContentView: View {
                 DiscoverCategoriesView()
                 PopularDestinationsView()
                 PopularRestaurantsView()
+                TrendingCreatorsView()
                 
             }.navigationTitle("Discover")
         }
