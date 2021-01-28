@@ -12,6 +12,7 @@
 		126D99F625C2A90E005B464F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126D99F525C2A90E005B464F /* Assets.xcassets */; };
 		126D99F925C2A90E005B464F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126D99F825C2A90E005B464F /* Preview Assets.xcassets */; };
 		126D9A0225C2AAD3005B464F /* DiscoverCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126D9A0125C2AAD3005B464F /* DiscoverCategoriesView.swift */; };
+		126D9A0525C2ABAB005B464F /* PopularDestinationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126D9A0425C2ABAB005B464F /* PopularDestinationsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		126D99F825C2A90E005B464F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		126D99FA25C2A90E005B464F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		126D9A0125C2AAD3005B464F /* DiscoverCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverCategoriesView.swift; sourceTree = "<group>"; };
+		126D9A0425C2ABAB005B464F /* PopularDestinationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularDestinationsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				126D99F125C2A90E005B464F /* Travel_AppApp.swift */,
 				126D99F325C2A90E005B464F /* ContentView.swift */,
 				126D9A0125C2AAD3005B464F /* DiscoverCategoriesView.swift */,
+				126D9A0425C2ABAB005B464F /* PopularDestinationsView.swift */,
 				126D99F525C2A90E005B464F /* Assets.xcassets */,
 				126D99FA25C2A90E005B464F /* Info.plist */,
 				126D99F725C2A90E005B464F /* Preview Content */,
@@ -144,6 +147,7 @@
 				126D99F425C2A90E005B464F /* ContentView.swift in Sources */,
 				126D99F225C2A90E005B464F /* Travel_AppApp.swift in Sources */,
 				126D9A0225C2AAD3005B464F /* DiscoverCategoriesView.swift in Sources */,
+				126D9A0525C2ABAB005B464F /* PopularDestinationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

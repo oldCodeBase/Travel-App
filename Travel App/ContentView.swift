@@ -12,6 +12,8 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 DiscoverCategoriesView()
+                PopularDestinationsView()
+                
             }.navigationTitle("Discover")
         }
     }
