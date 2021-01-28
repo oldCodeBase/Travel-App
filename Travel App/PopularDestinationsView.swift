@@ -42,7 +42,6 @@ struct PopularDestinationsView: View {
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 6)
                             
-                            
                             Text(destination.name)
                                 .font(.system(size: 12, weight: .semibold))
                                 .padding(.horizontal, 12)
@@ -53,10 +52,10 @@ struct PopularDestinationsView: View {
                                 .padding(.bottom, 8)
                                 .foregroundColor(.gray)
                         }
-                            .background(Color(.init(white: 0.9, alpha: 1)))
-                            .cornerRadius(5)
-                            .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
-                            .padding(.bottom)
+                        .background(Color(.init(white: 0.9, alpha: 1)))
+                        .cornerRadius(5)
+                        .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
+                        .padding(.bottom)
                     }
                 }.padding(.horizontal)
             }
