@@ -7,7 +7,18 @@
 
 import SwiftUI
 
+struct User: Hashable {
+    let name, imageName: String
+}
+
 struct TrendingCreatorsView: View {
+    
+    let users: [User] = [
+        .init(name: "Emily", imageName: "amy"),
+        .init(name: "Billy", imageName: "billy"),
+        .init(name: "Sam Smith", imageName: "sam"),
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -20,13 +31,20 @@ struct TrendingCreatorsView: View {
             .padding(.top)
             
             ScrollView(.horizontal) {
-                HStack(spacing: 8.0) {
-                    ForEach(0..<15, id: \.self) { num in
-                        Spacer()
-                            .frame(width: 50, height: 50)
-                            .background(Color(.init(white: 0.9, alpha: 1)))
-                            .cornerRadius(.infinity)
-                            .shadow(color: .gray, radius: 1.5, x: 0.0, y: 2)
+                HStack(alignment: .top, spacing: 12) {
+                    ForEach(users, id: \.self) { user in
+                        VStack {
+                            Image(user.imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(60)
+                            Text(user.name)
+                                .font(.system(size: 11, weight: .semibold))
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width: 60)
+                            .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
                             .padding(.bottom)
                     }
                 }.padding(.horizontal)
