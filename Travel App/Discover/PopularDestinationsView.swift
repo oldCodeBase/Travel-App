@@ -7,15 +7,11 @@
 
 import SwiftUI
 
-struct Destination: Hashable {
-    let name, country, imageName: String
-}
-
 struct PopularDestinationsView: View {
     let destinations: [Destination] = [
-        .init(name: "Paris", country: "France", imageName: "eiffel_tower"),
-        .init(name: "Tokyo", country: "Japan", imageName: "japan"),
-        .init(name: "New York", country: "US", imageName: "new_york"),
+        Destination(name: "Paris", country: "France", imageName: "eiffel_tower"),
+        Destination(name: "Tokyo", country: "Japan", imageName: "japan"),
+        Destination(name: "New York", country: "US", imageName: "new_york"),
     ]
     
     var body: some View {
@@ -30,7 +26,7 @@ struct PopularDestinationsView: View {
             .padding(.top)
             
             ScrollView(.horizontal) {
-                HStack(spacing: 12.0) {
+                HStack(spacing: 8.0) {
                     ForEach(destinations, id: \.self) { destination in
                         VStack(alignment: .leading, spacing: 0) {
                             
@@ -41,6 +37,7 @@ struct PopularDestinationsView: View {
                                 .cornerRadius(4)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 6)
+                             
                             
                             Text(destination.name)
                                 .font(.system(size: 12, weight: .semibold))
@@ -52,10 +49,8 @@ struct PopularDestinationsView: View {
                                 .padding(.bottom, 8)
                                 .foregroundColor(.gray)
                         }
-                        .background(Color(.white))
-                        .cornerRadius(5)
-                        .shadow(color: .init(.sRGB, white: 0.8, opacity: 1), radius: 4, x: 0.0, y: 2)
-                        .padding(.bottom)
+                        .asTile()
+                            .padding(.bottom)
                     }
                 }.padding(.horizontal)
             }

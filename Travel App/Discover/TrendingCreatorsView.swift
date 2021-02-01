@@ -7,16 +7,12 @@
 
 import SwiftUI
 
-struct User: Hashable {
-    let name, imageName: String
-}
-
 struct TrendingCreatorsView: View {
     
     let users: [User] = [
-        .init(name: "Emily", imageName: "amy"),
-        .init(name: "Billy", imageName: "billy"),
-        .init(name: "Sam Smith", imageName: "sam"),
+        User(name: "Emily", imageName: "amy"),
+        User(name: "Billy", imageName: "billy"),
+        User(name: "Sam Smith", imageName: "sam"),
     ]
     
     var body: some View {

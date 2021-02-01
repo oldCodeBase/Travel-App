@@ -7,15 +7,11 @@
 
 import SwiftUI
 
-struct Restaurant: Hashable {
-    let name, imageName: String
-}
-
 struct PopularRestaurantsView: View {
     
     let restaurants: [Restaurant] = [
-        .init(name: "Japan's Finest Tapas", imageName: "tapas"),
-        .init(name: "Bar & Grill", imageName: "bar_grill"),
+        Restaurant(name: "Japan's Finest Tapas", imageName: "tapas"),
+        Restaurant(name: "Bar & Grill", imageName: "bar_grill"),
     ]
     
     var body: some View {
@@ -50,6 +46,7 @@ struct PopularRestaurantsView: View {
                                         Image(systemName: "ellipsis")
                                             .foregroundColor(.gray)
                                     })
+                                    
                                 }
                                 
                                 HStack {
@@ -63,9 +60,7 @@ struct PopularRestaurantsView: View {
                             Spacer()
                         }
                         .frame(width: 240)
-                        .background(Color(.white))
-                        .cornerRadius(5)
-                        .shadow(color: .init(.sRGB, white: 0.8, opacity: 1), radius: 4, x: 0.0, y: 2)
+                        .asTile()
                         .padding(.bottom)
                     }
                 }.padding(.horizontal)
