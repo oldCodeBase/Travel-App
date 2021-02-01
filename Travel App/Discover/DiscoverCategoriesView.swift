@@ -44,27 +44,49 @@ struct DiscoverCategoriesView: View {
     }
 }
 
-class ObservableObjectForUserInterface: ObservableObject {
+class CategoryDetailsViewModel: ObservableObject {
     @Published var isLoading = true
+    @Published var places = [Int]()
     
     init() {
         // network
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.isLoading = false
+            self.places = [1, 2, 3, 4, 5]
         }
     }
 }
 
+struct ActivityIndicatorView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.startAnimating()
+        activityIndicator.color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return activityIndicator
+    }
+    
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) { }
+    typealias UIViewType = UIActivityIndicatorView
+}
+
 struct CategoryDetailsView: View {
-    @ObservedObject var vm = ObservableObjectForUserInterface()
+    @ObservedObject var vm = CategoryDetailsViewModel()
     
     var body: some View {
         ZStack {
             if vm.isLoading {
-                Text("Loading...")
+                VStack {
+                    ActivityIndicatorView()
+                    Text("Loading...")
+                        .foregroundColor(.white)
+                        .font(.system(size: 16, weight: .semibold))
+                }.padding()
+                .background(Color.black)
+                .cornerRadius(8)
+                
             } else {
                 ScrollView {
-                    ForEach(0..<5, id: \.self) { num in
+                    ForEach(vm.places, id: \.self) { num in
                         VStack(alignment: .leading, spacing: 0) {
                             Image("art1")
                                 .resizable()
