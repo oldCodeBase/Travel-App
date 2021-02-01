@@ -37,8 +37,7 @@ struct PopularDestinationsView: View {
                                 .cornerRadius(4)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 6)
-                             
-                            
+
                             Text(destination.name)
                                 .font(.system(size: 12, weight: .semibold))
                                 .padding(.horizontal, 12)

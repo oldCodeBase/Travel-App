@@ -23,21 +23,20 @@ struct PopularRestaurantsView: View {
                 Text("See all")
                     .font(.system(size: 12, weight: .semibold))
             }.padding(.horizontal)
-            .padding(.top)
+             .padding(.top)
             
             ScrollView(.horizontal) {
                 HStack(spacing: 8.0) {
                     ForEach(restaurants, id: \.self) { restaurant in
                         HStack(spacing: 8) {
-                            Image(restaurant.imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 60, height: 60)
-                                .clipped()
-                                .cornerRadius(5)
-                                .padding(.leading, 6)
-                                .padding(.vertical, 6)
-                            
+                                Image(restaurant.imageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 60, height: 60)
+                                    .clipped()
+                                    .cornerRadius(5)
+                                    .padding(.leading, 6)
+                                    .padding(.vertical, 6)
                             VStack(alignment: .leading, spacing: 6) {
                                 HStack {
                                     Text(restaurant.name)

@@ -18,7 +18,9 @@ struct DiscoverCategoriesView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
+            
             HStack(alignment: .top, spacing: 14) {
+                
                 ForEach(categories, id: \.self) { category in
                     NavigationLink(
                         destination: CategoryDetailsView(),
@@ -42,20 +44,39 @@ struct DiscoverCategoriesView: View {
     }
 }
 
+class ObservableObjectForUserInterface: ObservableObject {
+    @Published var isLoading = true
+    
+    init() {
+        // network
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isLoading = false
+        }
+    }
+}
+
 struct CategoryDetailsView: View {
+    @ObservedObject var vm = ObservableObjectForUserInterface()
+    
     var body: some View {
-        ScrollView {
-            ForEach(0..<5, id: \.self) { num in
-                VStack(alignment: .leading, spacing: 0) {
-                    Image("art1")
-                        .resizable()
-                        .scaledToFill()
-                    Text("Demo123")
-                        .font(.system(size: 12, weight: .semibold))
+        ZStack {
+            if vm.isLoading {
+                Text("Loading...")
+            } else {
+                ScrollView {
+                    ForEach(0..<5, id: \.self) { num in
+                        VStack(alignment: .leading, spacing: 0) {
+                            Image("art1")
+                                .resizable()
+                                .scaledToFill()
+                            Text("Category")
+                                .font(.system(size: 12, weight: .semibold))
+                                .padding()
+                            
+                        }.asTile()
                         .padding()
-                        
-                }.asTile()
-                .padding()
+                    }
+                }
             }
         }.navigationBarTitle("Category", displayMode: .inline)
     }
