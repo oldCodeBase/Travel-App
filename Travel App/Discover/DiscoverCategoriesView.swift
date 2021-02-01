@@ -46,14 +46,24 @@ struct DiscoverCategoriesView: View {
 
 class CategoryDetailsViewModel: ObservableObject {
     @Published var isLoading = true
-    @Published var places = [Int]()
+    @Published var places = [Place]()
     
     init() {
-        // network
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isLoading = false
-            self.places = [1, 2, 3, 4, 5]
-        }
+        guard let url = URL(string: "http://travel.letsbuildthatapp.com/travel_discovery/category?name=art") else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                guard let data = data else { return }
+                do {
+                    self.places = try JSONDecoder().decode([Place].self, from: data)
+                    
+                } catch {
+                    print("Failed to decode JSON:", error)
+                }
+                self.isLoading = false
+            }
+        }.resume()
     }
 }
 
@@ -86,12 +96,12 @@ struct CategoryDetailsView: View {
                 
             } else {
                 ScrollView {
-                    ForEach(vm.places, id: \.self) { num in
+                    ForEach(vm.places, id: \.self) { place in
                         VStack(alignment: .leading, spacing: 0) {
                             Image("art1")
                                 .resizable()
                                 .scaledToFill()
-                            Text("Category")
+                            Text(place.name)
                                 .font(.system(size: 12, weight: .semibold))
                                 .padding()
                             
