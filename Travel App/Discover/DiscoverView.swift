@@ -41,7 +41,6 @@ struct DiscoverView: View {
                          .background(Color(.init(white: 1, alpha: 0.3)))
                          .cornerRadius(10)
                          .padding(16)
-                    
                     DiscoverCategoriesView()
                     
                     VStack {
