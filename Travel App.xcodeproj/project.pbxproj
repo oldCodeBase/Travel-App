@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		120D748625C85A120068FC7F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D748525C85A120068FC7F /* Place.swift */; };
+		125CB11325CAB2A5006B7084 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 125CB11225CAB2A5006B7084 /* Kingfisher */; };
+		125CB11625CAB485006B7084 /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125CB11525CAB485006B7084 /* CategoryDetailsView.swift */; };
+		125CB11925CAB590006B7084 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125CB11825CAB590006B7084 /* ActivityIndicatorView.swift */; };
 		126D99F225C2A90E005B464F /* Travel_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126D99F125C2A90E005B464F /* Travel_AppApp.swift */; };
 		126D99F625C2A90E005B464F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126D99F525C2A90E005B464F /* Assets.xcassets */; };
 		126D99F925C2A90E005B464F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126D99F825C2A90E005B464F /* Preview Assets.xcassets */; };
@@ -25,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		120D748525C85A120068FC7F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		125CB11525CAB485006B7084 /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
+		125CB11825CAB590006B7084 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		126D99EE25C2A90E005B464F /* Travel App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travel App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		126D99F125C2A90E005B464F /* Travel_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel_AppApp.swift; sourceTree = "<group>"; };
 		126D99F525C2A90E005B464F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				125CB11325CAB2A5006B7084 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +105,7 @@
 				126D9A0425C2ABAB005B464F /* PopularDestinationsView.swift */,
 				126D9A0825C2AEBF005B464F /* PopularRestaurantsView.swift */,
 				126D9A0B25C2AF59005B464F /* TrendingCreatorsView.swift */,
+				125CB11525CAB485006B7084 /* CategoryDetailsView.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -119,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				12D5A69F25C84A2F00121316 /* TileModifier.swift */,
+				125CB11825CAB590006B7084 /* ActivityIndicatorView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -139,6 +147,9 @@
 			dependencies = (
 			);
 			name = "Travel App";
+			packageProductDependencies = (
+				125CB11225CAB2A5006B7084 /* Kingfisher */,
+			);
 			productName = "Travel App";
 			productReference = 126D99EE25C2A90E005B464F /* Travel App.app */;
 			productType = "com.apple.product-type.application";
@@ -166,6 +177,9 @@
 				Base,
 			);
 			mainGroup = 126D99E525C2A90E005B464F;
+			packageReferences = (
+				125CB11125CAB2A5006B7084 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 126D99EF25C2A90E005B464F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -200,10 +214,12 @@
 				126D9A0225C2AAD3005B464F /* DiscoverCategoriesView.swift in Sources */,
 				126D9A0525C2ABAB005B464F /* PopularDestinationsView.swift in Sources */,
 				12D5A68F25C8489000121316 /* DiscoverView.swift in Sources */,
+				125CB11625CAB485006B7084 /* CategoryDetailsView.swift in Sources */,
 				12D5A69725C8498A00121316 /* Destination.swift in Sources */,
 				12D5A69425C8497D00121316 /* Category.swift in Sources */,
 				12D5A69D25C849A100121316 /* User.swift in Sources */,
 				12D5A69A25C8499600121316 /* Restaurant.swift in Sources */,
+				125CB11925CAB590006B7084 /* ActivityIndicatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +408,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		125CB11125CAB2A5006B7084 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		125CB11225CAB2A5006B7084 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 125CB11125CAB2A5006B7084 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 126D99E625C2A90E005B464F /* Project object */;
 }
