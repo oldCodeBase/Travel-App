@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct DiscoverCategoriesView: View {
     let categories: [Category] = [
@@ -18,9 +19,7 @@ struct DiscoverCategoriesView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            
             HStack(alignment: .top, spacing: 14) {
-                
                 ForEach(categories, id: \.self) { category in
                     NavigationLink(
                         destination: CategoryDetailsView(),
@@ -41,76 +40,6 @@ struct DiscoverCategoriesView: View {
                 }
             }.padding(.horizontal)
         }
-    }
-}
-
-class CategoryDetailsViewModel: ObservableObject {
-    @Published var isLoading = true
-    @Published var places = [Place]()
-    
-    init() {
-        guard let url = URL(string: "http://travel.letsbuildthatapp.com/travel_discovery/category?name=art") else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                guard let data = data else { return }
-                do {
-                    self.places = try JSONDecoder().decode([Place].self, from: data)
-                    
-                } catch {
-                    print("Failed to decode JSON:", error)
-                }
-                self.isLoading = false
-            }
-        }.resume()
-    }
-}
-
-struct ActivityIndicatorView: UIViewRepresentable {
-    func makeUIView(context: Context) -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.startAnimating()
-        activityIndicator.color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        return activityIndicator
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) { }
-    typealias UIViewType = UIActivityIndicatorView
-}
-
-struct CategoryDetailsView: View {
-    @ObservedObject var vm = CategoryDetailsViewModel()
-    
-    var body: some View {
-        ZStack {
-            if vm.isLoading {
-                VStack {
-                    ActivityIndicatorView()
-                    Text("Loading...")
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .semibold))
-                }.padding()
-                .background(Color.black)
-                .cornerRadius(8)
-                
-            } else {
-                ScrollView {
-                    ForEach(vm.places, id: \.self) { place in
-                        VStack(alignment: .leading, spacing: 0) {
-                            Image("art1")
-                                .resizable()
-                                .scaledToFill()
-                            Text(place.name)
-                                .font(.system(size: 12, weight: .semibold))
-                                .padding()
-                            
-                        }.asTile()
-                        .padding()
-                    }
-                }
-            }
-        }.navigationBarTitle("Category", displayMode: .inline)
     }
 }
 
