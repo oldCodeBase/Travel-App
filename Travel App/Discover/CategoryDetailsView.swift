@@ -12,7 +12,6 @@ class CategoryDetailsViewModel: ObservableObject {
     
     @Published var isLoading = true
     @Published var places = [Place]()
-    
     @Published var errorMessage = ""
     
     init(name: String) {
@@ -24,14 +23,15 @@ class CategoryDetailsViewModel: ObservableObject {
             return
         }
         
-        URLSession.shared.dataTask(with: url) { (data, resp, err) in
-            if let statusCode = (resp as? HTTPURLResponse)?.statusCode, statusCode >= 400 {
-                self.isLoading = false
-                self.errorMessage = "Bad status: \(statusCode)"
-                return
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            URLSession.shared.dataTask(with: url) { (data, resp, err) in
+                if let statusCode = (resp as? HTTPURLResponse)?.statusCode, statusCode >= 400 {
+                    self.isLoading = false
+                    self.errorMessage = "Bad status: \(statusCode)"
+                    return
+                }
+                
                 guard let data = data else { return }
                 
                 do {
@@ -42,8 +42,8 @@ class CategoryDetailsViewModel: ObservableObject {
                 }
                 
                 self.isLoading = false
-            }
-        }.resume()
+            }.resume()
+        }
     }
 }
 
@@ -62,7 +62,7 @@ struct CategoryDetailsView: View {
             if vm.isLoading {
                 VStack {
                     ActivityIndicatorView()
-                    Text("Loading..")
+                    Text("LOADING")
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .semibold))
                 }
@@ -92,7 +92,7 @@ struct CategoryDetailsView: View {
                                 Text(place.name)
                                     .font(.system(size: 12, weight: .semibold))
                                     .padding()
-                                    
+                                
                             }.asTile()
                             .padding()
                         }

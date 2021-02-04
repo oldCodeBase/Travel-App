@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
-import Kingfisher
+
+struct NavigationLazyView<Content: View>: View {
+    let build: () -> Content
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+    
+    var body: Content {
+        build()
+    }
+}
 
 struct DiscoverCategoriesView: View {
     let categories: [Category] = [
         Category(name: "Art", imageName: "paintpalette.fill"),
-        Category(name: "Sport", imageName: "sportscourt.fill"),
+        Category(name: "Sports", imageName: "sportscourt.fill"),
         Category(name: "Live Events", imageName: "music.mic"),
         Category(name: "Food", imageName: "tray.fill"),
         Category(name: "History", imageName: "books.vertical.fill"),
@@ -22,7 +32,7 @@ struct DiscoverCategoriesView: View {
             HStack(alignment: .top, spacing: 14) {
                 ForEach(categories, id: \.self) { category in
                     NavigationLink(
-                        destination: CategoryDetailsView(name: category.name),
+                        destination: NavigationLazyView(CategoryDetailsView(name: category.name)),
                         label: {
                             VStack(spacing: 8) {
                                 Image(systemName: category.imageName)
