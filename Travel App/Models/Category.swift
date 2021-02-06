@@ -8,5 +8,6 @@
 import Foundation
 
 struct Category: Hashable {
-    let name, imageName: String
+    let name: String
+    let imageName: String
 }

@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct PopularDestinationsView: View {
+    
     let destinations: [Destination] = [
-        Destination(name: "Paris", country: "France", imageName: "eiffel_tower"),
-        Destination(name: "Tokyo", country: "Japan", imageName: "japan"),
-        Destination(name: "New York", country: "US", imageName: "new_york"),
+        Destination(name: "Paris", country: "France", imageName: "eiffel_tower",
+                    latitude: 48.855014, longitude: 2.341231),
+        Destination(name: "Tokyo", country: "Japan", imageName: "japan",
+                    latitude: 35.67988, longitude: 139.7695),
+        Destination(name: "New York", country: "US", imageName: "new_york",
+                    latitude: 40.71592, longitude: -74.0055),
     ]
     
     var body: some View {
@@ -34,7 +39,6 @@ struct PopularDestinationsView: View {
                                 PopularDestinationTile(destination: destination)
                                     .padding(.bottom)
                             })
-                        
                     }
                 }.padding(.horizontal)
             }
@@ -45,12 +49,19 @@ struct PopularDestinationsView: View {
 struct PopularDestinationDetailsView: View {
     
     let destination: Destination
+    @State var region: MKCoordinateRegion
+    
+    init(destination: Destination) {
+        self.destination = destination
+        self._region = State(initialValue: MKCoordinateRegion(center: .init(latitude: destination.latitude, longitude: destination.longitude), span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+    }
+    
     var body: some View {
         ScrollView {
             Image(destination.imageName)
                 .resizable()
                 .scaledToFill()
-                .frame(height: 200)
+                .frame(height: 250)
                 .clipped()
             
             VStack(alignment: .leading) {
@@ -67,10 +78,21 @@ struct PopularDestinationDetailsView: View {
                 
                 Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
                     .padding(.top, 4)
+                    .font(.system(size: 14))
                 
                 HStack{ Spacer() }
             }
             .padding(.horizontal)
+            
+            HStack {
+                Text("Location")
+                    .font(.system(size: 18, weight: .semibold))
+                Spacer()
+            }.padding(.horizontal)
+            
+            Map(coordinateRegion: $region)
+                .frame(height: 200)
+            
         }.navigationBarTitle(destination.name, displayMode: .inline)
     }
 }
@@ -78,6 +100,7 @@ struct PopularDestinationDetailsView: View {
 struct PopularDestinationTile: View {
     
     let destination: Destination
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
@@ -107,7 +130,7 @@ struct PopularDestinationTile: View {
 struct PopularDestinationsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PopularDestinationDetailsView(destination: .init(name: "Paris", country: "France", imageName: "eiffel_tower"))
+            PopularDestinationDetailsView(destination: .init(name: "Tokyo", country: "Japan", imageName: "japan", latitude: 35.679693, longitude: 139.771913))
         }
         DiscoverView()
         PopularDestinationsView()
