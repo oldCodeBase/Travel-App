@@ -61,11 +61,8 @@ struct PopularDestinationDetailsView: View {
     
     var body: some View {
         ScrollView {
-            Image(destination.imageName)
-                .resizable()
-                .scaledToFill()
+            DestinationHeaderContainer()
                 .frame(height: 250)
-                .clipped()
             
             VStack(alignment: .leading) {
                 Text(destination.name)
@@ -113,9 +110,9 @@ struct PopularDestinationDetailsView: View {
     }
     
     let attractions: [Attraction] = [
-        .init(name: "Eiffel Tower", imageName: "eiffel_tower", latitude: 48.858605, longitude: 2.2946),
-        .init(name: "Champs-Elysees", imageName: "new_york", latitude: 48.866867, longitude: 2.311780),
-        .init(name: "Louvre Museum", imageName: "art2", latitude: 48.860288, longitude: 2.337789)
+        Attraction(name: "Eiffel Tower", imageName: "eiffel_tower", latitude: 48.858605, longitude: 2.2946),
+        Attraction(name: "Champs-Elysees", imageName: "new_york", latitude: 48.866867, longitude: 2.311780),
+        Attraction(name: "Louvre Museum", imageName: "art2", latitude: 48.860288, longitude: 2.337789)
     ]
 }
 
@@ -147,12 +144,6 @@ struct CustomMapAnnotation: View {
             
         }.shadow(radius: 5)
     }
-}
-
-struct Attraction: Identifiable {
-    let id = UUID().uuidString
-    let name, imageName: String
-    let latitude, longitude: Double
 }
 
 struct PopularDestinationTile: View {
