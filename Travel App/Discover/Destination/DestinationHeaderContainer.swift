@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-
 struct DestinationHeaderContainer: UIViewControllerRepresentable {
     
     typealias UIViewControllerType = UIViewController
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let redVC = UIViewController()
-        redVC.view.backgroundColor = .systemRed
-        return redVC
+        let pvc = CustomPageViewController()
+        return pvc
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {

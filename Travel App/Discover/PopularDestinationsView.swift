@@ -39,7 +39,6 @@ struct PopularDestinationsView: View {
                                 PopularDestinationTile(destination: destination)
                                     .padding(.bottom)
                             })
-                        
                     }
                 }.padding(.horizontal)
             }
@@ -119,7 +118,6 @@ struct PopularDestinationDetailsView: View {
 struct CustomMapAnnotation: View {
     
     let attraction: Attraction
-    
     var body: some View {
         VStack {
             Image(attraction.imageName)
