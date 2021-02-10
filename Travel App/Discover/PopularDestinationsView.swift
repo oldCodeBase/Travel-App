@@ -39,6 +39,7 @@ struct PopularDestinationsView: View {
                                 PopularDestinationTile(destination: destination)
                                     .padding(.bottom)
                             })
+                        
                     }
                 }.padding(.horizontal)
             }
@@ -49,7 +50,9 @@ struct PopularDestinationsView: View {
 struct PopularDestinationDetailsView: View {
     
     let destination: Destination
+    
     @State var region: MKCoordinateRegion
+    @State var isShowingAttractions = true
     
     init(destination: Destination) {
         self.destination = destination
@@ -76,7 +79,7 @@ struct PopularDestinationDetailsView: View {
                     }
                 }.padding(.top, 2)
                 
-                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
+                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
                     .padding(.top, 4)
                     .font(.system(size: 14))
                 
@@ -88,19 +91,73 @@ struct PopularDestinationDetailsView: View {
                 Text("Location")
                     .font(.system(size: 18, weight: .semibold))
                 Spacer()
+                
+                Button(action: { isShowingAttractions.toggle() }, label: {
+                    Text("\(isShowingAttractions ? "Hide" : "Show") Attractions")
+                        .font(.system(size: 12, weight: .semibold))
+                })
+                
+                Toggle("", isOn: $isShowingAttractions)
+                    .labelsHidden()
+                
             }.padding(.horizontal)
             
-            Map(coordinateRegion: $region)
-                .frame(height: 200)
+            Map(coordinateRegion: $region, annotationItems: isShowingAttractions ? attractions : []) { attraction in
+                MapAnnotation(coordinate: .init(latitude: attraction.latitude, longitude: attraction.longitude)) {
+                    CustomMapAnnotation(attraction: attraction)
+                }
+            }
+            .frame(height: 300)
             
         }.navigationBarTitle(destination.name, displayMode: .inline)
     }
+    
+    let attractions: [Attraction] = [
+        .init(name: "Eiffel Tower", imageName: "eiffel_tower", latitude: 48.858605, longitude: 2.2946),
+        .init(name: "Champs-Elysees", imageName: "new_york", latitude: 48.866867, longitude: 2.311780),
+        .init(name: "Louvre Museum", imageName: "art2", latitude: 48.860288, longitude: 2.337789)
+    ]
+}
+
+struct CustomMapAnnotation: View {
+    
+    let attraction: Attraction
+    
+    var body: some View {
+        VStack {
+            Image(attraction.imageName)
+                .resizable()
+                .frame(width: 80, height: 60)
+                .cornerRadius(4)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color(.init(white: 0, alpha: 0.5)))
+                )
+            Text(attraction.name)
+                .font(.system(size: 12, weight: .semibold))
+                .padding(.horizontal, 6)
+                .padding(.vertical, 4)
+                .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
+                .foregroundColor(.white)
+                .cornerRadius(4)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color(.init(white: 0, alpha: 0.5)))
+                )
+            
+        }.shadow(radius: 5)
+    }
+}
+
+struct Attraction: Identifiable {
+    let id = UUID().uuidString
+    let name, imageName: String
+    let latitude, longitude: Double
 }
 
 struct PopularDestinationTile: View {
     
     let destination: Destination
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
@@ -130,7 +187,7 @@ struct PopularDestinationTile: View {
 struct PopularDestinationsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PopularDestinationDetailsView(destination: .init(name: "Tokyo", country: "Japan", imageName: "japan", latitude: 35.679693, longitude: 139.771913))
+            PopularDestinationDetailsView(destination: .init(name: "Paris", country: "France", imageName: "eiffel_tower", latitude: 48.859565, longitude: 2.353235))
         }
         DiscoverView()
         PopularDestinationsView()
