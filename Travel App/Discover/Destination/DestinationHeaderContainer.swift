@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct DestinationHeaderContainer: UIViewControllerRepresentable {
-    
+    let imageNames: [String]
     typealias UIViewControllerType = UIViewController
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let pvc = CustomPageViewController()
+        let pvc = CustomPageViewController(imageNames: imageNames)
         return pvc
     }
     
@@ -23,6 +23,6 @@ struct DestinationHeaderContainer: UIViewControllerRepresentable {
 
 struct DestinationHeaderContainer_Previews: PreviewProvider {
     static var previews: some View {
-        DestinationHeaderContainer()
+        DestinationHeaderContainer(imageNames: ["eiffel_tower", "japan", "new_york"])
     }
 }

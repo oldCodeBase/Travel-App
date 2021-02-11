@@ -60,7 +60,7 @@ struct PopularDestinationDetailsView: View {
     
     var body: some View {
         ScrollView {
-            DestinationHeaderContainer()
+            DestinationHeaderContainer(imageNames: ["eiffel_tower", "japan", "new_york"])
                 .frame(height: 250)
             
             VStack(alignment: .leading) {
