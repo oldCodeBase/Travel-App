@@ -6,21 +6,22 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 class CustomPageViewController: UIPageViewController {
     
     var allControllers: [UIViewController] = []
     
-    init(imageNames: [String]) {
+    init(imagesUrlString: [String]) {
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.systemGray5
         UIPageControl.appearance().currentPageIndicatorTintColor = .systemRed
         
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
-        allControllers = imageNames.map({
+        allControllers = imagesUrlString.map({
             imageName in
             let hostingController = UIHostingController(rootView:
-                                                            Image(imageName)
+                                                            KFImage(URL(string: imageName))
                                                             .resizable()
                                                             .scaledToFill()
             )
