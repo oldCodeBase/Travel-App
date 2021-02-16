@@ -35,7 +35,9 @@ struct PopularDestinationsView: View {
                 HStack(spacing: 8.0) {
                     ForEach(destinations, id: \.self) { destination in
                         NavigationLink(
-                            destination: PopularDestinationDetailsView(destination: destination),
+                            destination:
+                                NavigationLazyView(PopularDestinationDetailsView(destination: destination))
+                            ,
                             label: {
                                 PopularDestinationTile(destination: destination)
                                     .padding(.bottom)
@@ -47,7 +49,33 @@ struct PopularDestinationsView: View {
     }
 }
 
+class DestinationDetailsViewModel: ObservableObject {
+    
+    @Published var isLoading = true
+    @Published var destinationDetails: DestinationDetails?
+    
+    init(name: String) {
+        let fixedUrlString = "https://travel.letsbuildthatapp.com/travel_discovery/destination?name=\(name.lowercased())".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        guard let url = URL(string: fixedUrlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, resp, err) in
+            
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                
+                do {
+                    self.destinationDetails = try JSONDecoder().decode(DestinationDetails.self, from: data)
+                } catch {
+                    print("Failed to decode JSON,", error)
+                }
+            }
+        }.resume()
+    }
+    
+}
+
 struct PopularDestinationDetailsView: View {
+    
+    @ObservedObject var vm: DestinationDetailsViewModel
     
     let destination: Destination
     
@@ -55,11 +83,14 @@ struct PopularDestinationDetailsView: View {
     @State var isShowingAttractions = true
     
     init(destination: Destination) {
+        print("Hitting network unnecessarily")
         self.destination = destination
         self._region = State(initialValue: MKCoordinateRegion(center: .init(latitude: destination.latitude, longitude: destination.longitude), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
+        
+        self.vm = .init(name: destination.name)
     }
     
-    let imagesUrlString = [
+    let imageUrlStrings = [
         "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/2240d474-2237-4cd3-9919-562cd1bb439e",
         "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/b1642068-5624-41cf-83f1-3f6dff8c1702",
         "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/6982cc9d-3104-4a54-98d7-45ee5d117531"
@@ -67,8 +98,11 @@ struct PopularDestinationDetailsView: View {
     
     var body: some View {
         ScrollView {
-            DestinationHeaderContainer(imagesUrlString: imagesUrlString)
-                .frame(height: 250)
+            
+            if let photos = vm.destinationDetails?.photos {
+                DestinationHeaderContainer(imagesUrlString: photos)
+                    .frame(height: 250)
+            }
             
             VStack(alignment: .leading) {
                 Text(destination.name)
@@ -82,7 +116,7 @@ struct PopularDestinationDetailsView: View {
                     }
                 }.padding(.top, 2)
                 
-                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                Text(vm.destinationDetails?.description ?? "")
                     .padding(.top, 4)
                     .font(.system(size: 14))
                 
